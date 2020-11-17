@@ -19,6 +19,8 @@
                 <div class="case" id="7"></div>
                 <div class="case" id="8"></div>
             </div>
+            <div class="bandeJoueur" id="bandeMoi"></div>
+            <div class="bandeJoueur" id="bandeAdversaire"></div>
             <div id="logs">
             </div>
         </div>
@@ -64,6 +66,18 @@
         {
             log("Tu joues les " + type);
             socket.type = type;
+            let bandeMoi = document.getElementById("bandeMoi");
+            bandeMoi.innerHTML = socket.type + ' ' +socket.pseudo;
+            let bandeAdversaire = document.getElementById("bandeAdversaire");
+            if (socket.type === 'X')
+            {
+                bandeAdversaire.innerHTML = 'O '; 
+            }
+            else if (socket.type === 'O')
+            {
+                bandeAdversaire.innerHTML = 'X ';
+            }
+            bandeAdversaire.innerHTML += socket.adversaire;
         }
     );
     socket.on('tour', function(tour)

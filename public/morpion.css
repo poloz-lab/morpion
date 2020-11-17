@@ -19,6 +19,7 @@ body {
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 5px;
     grid-auto-rows: 33%;
+    margin-bottom: 10px;
 }
 
 .case {
@@ -28,11 +29,20 @@ body {
     padding-top: calc(50% - 128px / 2);
 }
 
+.bandeJoueur {
+    background-color: ghostwhite;
+    font-size: 24px;
+    margin: 5px 0;
+    padding: 10px 5px;
+    border-radius: 5px;
+    border: 2px solid black;
+}
+
 #logs {
     background-color: gainsboro;
     overflow-y: scroll;
     height: 100px;
-    margin: 20px 0;
+    margin: 10px 0;
     /*
     max-width: 700px;
     margin: 0 auto;
