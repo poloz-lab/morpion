@@ -36,7 +36,7 @@
     }
 
     /* interactions avec le socket */
-    var socket = io.connect('http://localhost:8080');
+    var socket = io.connect(window.location.protocol + '//'+window.location.hostname + ':' + window.location.port);
     socket.on('connect', function()
         {
             let pseudo = prompt("Entrez un pseudo");
