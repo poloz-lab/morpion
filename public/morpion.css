@@ -19,6 +19,7 @@ body {
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 5px;
     grid-auto-rows: 33%;
+    margin-bottom: 10px;
 }
 
 .case {
@@ -41,7 +42,7 @@ body {
     background-color: gainsboro;
     overflow-y: scroll;
     height: 100px;
-    margin: 20px 0;
+    margin: 10px 0;
     /*
     max-width: 700px;
     margin: 0 auto;
