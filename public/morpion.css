@@ -28,6 +28,9 @@ body {
     padding-top: calc(50% - 128px / 2);
 }
 
+.bandeJoueur {
+}
+
 #logs {
     background-color: gainsboro;
     overflow-y: scroll;
