@@ -1,0 +1,126 @@
+<!doctype html>
+
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Morpion</title>
+        <link rel="stylesheet" href="morpion.css">
+    </head>
+    <body>
+        <div id="jeu">
+            <div id="grille">
+                <div class="case" id="0"></div>
+                <div class="case" id="1"></div>
+                <div class="case" id="2"></div>
+                <div class="case" id="3"></div>
+                <div class="case" id="4"></div>
+                <div class="case" id="5"></div>
+                <div class="case" id="6"></div>
+                <div class="case" id="7"></div>
+                <div class="case" id="8"></div>
+            </div>
+            <div id="logs">
+            </div>
+        </div>
+    </body>
+</html>
+
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="socket.io/socket.io.js"></script>
+<script language="javascript">
+    /* fonction pour ajouter un message dans la div des logs */
+    function log(message)
+    {
+        let divLogs = document.getElementById("logs");
+        divLogs.innerHTML = '<div class="message">' + message + '</div>' + divLogs.innerHTML;
+    }
+
+    /* interactions avec le socket */
+    var socket = io.connect('http://localhost:8080');
+    socket.on('connect', function()
+        {
+            let pseudo = prompt("Entrez un pseudo");
+            socket.emit('nouveauJoueur',pseudo);
+        }
+    );
+    socket.on('validationSession',function(pseudo)
+        {
+            log("Session validée, bienvenue " + pseudo);
+            socket.pseudo = pseudo;
+        }
+    );
+    socket.on('miseEnFileDAttente',function()
+        {
+            log("Aucun adversaire disponible, tu es placé en file d'attente");
+        }
+    );
+    socket.on('partieTrouvee', function(adversaire)
+        {
+            log("Adversaire trouvé! Tu es en partie avec " + adversaire);
+            socket.adversaire = adversaire;
+        }
+    );
+    socket.on('type', function(type)
+        {
+            log("Tu joues les " + type);
+            socket.type = type;
+        }
+    );
+    socket.on('tour', function(tour)
+        {
+            if (tour === socket.type)
+            {
+                log("C'est à ton tour ("+ tour +")");
+            }
+            else
+            {
+                log("C'est au tour de " + socket.adversaire + "("+ tour +")");
+            }
+        }
+    );
+    socket.on('grille', function(grille)
+        {
+            for(let i=0; i<9; i++)
+            {
+                let c = document.getElementById(i.toString());
+                c.innerHTML = grille[i];
+            }
+        }
+    );
+    socket.on('resultat', function(resultat)
+        {
+            switch(resultat)
+            {
+                case 'nulle':
+                    log("Partie nulle");
+                    break;
+                case 'victoire':
+                    log("Bravo! Tu as gagné!");
+                    break;
+                case 'defaite':
+                    log("Dommage! Tu as perdu..."); 
+                    break;
+            }
+        }
+    );
+
+    /* rendre les div cliquables */
+    for(let i=0; i<9; i++)
+    {
+        let c = document.getElementById(i.toString());
+        c.style.cursor = 'pointer';
+        c.onclick = function()
+        {
+            socket.emit('coupJoue',i);
+        }
+    }
+    
+    /* dessiner la grille */
+    /* dessiner le canvas */
+    /*
+    var canvas = document.getElementById("mycanvas");
+    var ctx = canvas.getContext("2d");
+    ctx.fillStyle="black";
+    ctx.fillRect(0,0, canvas.width, canvas.height);
+    */
+</script>

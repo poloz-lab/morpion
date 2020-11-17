@@ -1,0 +1,49 @@
+body {
+    background-color: aliceblue;
+    padding: 2vh 1vw;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+#jeu {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+#grille {    
+    max-width: 700px;
+    max-height: 700px;
+    height: 94vw;
+    background-color: black;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 5px;
+    grid-auto-rows: 33%;
+}
+
+.case {
+    background-color: white;
+    font-size: 128px;
+    text-align: center;
+    padding-top: calc(50% - 128px / 2);
+}
+
+#logs {
+    background-color: gainsboro;
+    overflow-y: scroll;
+    height: 100px;
+    margin: 20px 0;
+    /*
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0px 10px;
+    */
+}
+
+.message {
+    background-color: ghostwhite;
+    margin: 5px auto;
+    max-width: 680px;
+    padding: 5px;
+    border-radius: 7px;
+}
